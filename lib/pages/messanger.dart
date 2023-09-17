@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../constants.dart';
 import 'Login_screen.dart';
+import 'cubits/Login_Cubit/cubit/chat_cubit.dart';
 
 class Messanger extends StatefulWidget {
   static String id = 'Messanger';
@@ -123,6 +125,9 @@ class _MessangerState extends State<Messanger> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
+                                BlocProvider.of<ChatCubit>(context).getmessage(
+                                    sender: uid as String,
+                                    reciver: userList[index].uid);
                                 Navigator.pushNamed(context, Chat_Screen.id,
                                     arguments: userList[index].uid);
                               },
